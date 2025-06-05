@@ -64,14 +64,14 @@ services:
     volumes:
       - postgres:/var/lib/postgresql/data
     ports:
-      - ${DOCKER_POSTGRES_PORT:-5433}:5433
+      - ${DOCKER_POSTGRES_PORT:-5432}:5432
 
   redis:
     container_name: ieducar-redis
     image: redis:7-alpine
     restart: always
     ports:
-      - ${DOCKER_REDIS_PORT:-6380}:6380
+      - ${DOCKER_REDIS_PORT:-6379}:6379
 
 volumes:
     postgres:
