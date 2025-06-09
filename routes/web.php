@@ -148,8 +148,8 @@ Route::group(['middleware' => ['ieducar.navigation', 'ieducar.footer', 'ieducar.
     Route::get('/atualiza-data-entrada', 'UpdateRegistrationDateController@index')->middleware('can:view:' . Process::UPDATE_REGISTRATION_DATE)->name('update-registration-date.index');
     Route::post('/atualiza-data-entrada', 'UpdateRegistrationDateController@updateStatus')->middleware('can:modify:' . Process::UPDATE_REGISTRATION_DATE)->name('update-registration-date.update-date');
 
-    Route::get('/atualiza-etapa-turma', 'SchoolClassPeriodController@edit')->middleware('can:modify:' . Process::SCHOOLCLASS_PERIOD)->name('schoolclass-period.edit');
-    Route::post('atualiza-etapa-turma', 'SchoolClassPeriodController@update')->middleware('can:modify:' . Process::SCHOOLCLASS_PERIOD)->name('schoolclass-period.update');
+    Route::get('/atualiza-etapa', 'StageController@edit')->middleware('can:modify:' . Process::STAGE)->name('stage.edit');
+    Route::post('/atualiza-etapa', 'StageController@update')->middleware('can:modify:' . Process::STAGE)->name('stage.update');
 
     Route::get('/bloquear-enturmacao', 'BlockEnrollmentController@edit')->middleware('can:modify:' . Process::BLOCK_ENROLLMENT)->name('block-enrollment.edit');
     Route::post('/bloquear-enturmacao', 'BlockEnrollmentController@update')->middleware('can:modify:' . Process::BLOCK_ENROLLMENT)->name('block-enrollment.update');

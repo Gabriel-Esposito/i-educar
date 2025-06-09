@@ -78,7 +78,7 @@ class RegistrationStatus implements Enum
      */
     public static function getRegistrationAndEnrollmentStatus(): array
     {
-        $values = (new self())->getDescriptiveValues();
+        $values = (new self)->getDescriptiveValues();
 
         $values[self::REPROVED] = 'Reprovado'; // Situação "Reprovado" da matrícula
 

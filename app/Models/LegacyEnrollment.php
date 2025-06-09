@@ -66,6 +66,7 @@ class LegacyEnrollment extends LegacyModel
         'reclassificado',
         'abandono',
         'falecido',
+        'data_exclusao',
     ];
 
     protected $casts = [

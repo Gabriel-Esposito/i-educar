@@ -134,6 +134,7 @@ return new class extends clsListagem
                 return $query->where('nm_curso', 'ILIKE', '%' . request('nm_curso') . '%');
             })
             ->orderBy('nm_curso')
+            ->active()
             ->paginate(
                 perPage: $this->limite,
                 pageName: 'pagina_' . $this->nome

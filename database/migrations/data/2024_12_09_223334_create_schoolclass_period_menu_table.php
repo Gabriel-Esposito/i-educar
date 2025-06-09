@@ -8,9 +8,9 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Menu::query()->updateOrCreate(['old' => Process::SCHOOLCLASS_PERIOD], [
+        Menu::query()->updateOrCreate(['old' => Process::STAGE], [
             'parent_id' => Menu::query()->where('old', Process::CONFIGURATIONS_TOOLS)->firstOrFail()->getKey(),
-            'process' => Process::SCHOOLCLASS_PERIOD,
+            'process' => Process::STAGE,
             'title' => 'Atualizar etapas da turma em lote',
             'order' => 0,
             'parent_old' => Process::CONFIGURATIONS_TOOLS,
@@ -20,6 +20,6 @@ return new class extends Migration
 
     public function down(): void
     {
-        Menu::query()->where('old', Process::SCHOOLCLASS_PERIOD)->delete();
+        Menu::query()->where('old', Process::STAGE)->delete();
     }
 };

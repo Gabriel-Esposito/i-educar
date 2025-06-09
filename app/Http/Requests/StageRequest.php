@@ -2,17 +2,18 @@
 
 namespace App\Http\Requests;
 
+use App\Models\LegacyStageType;
 use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Arr;
 
-class SchoolClassPeriodRequest extends FormRequest
+class StageRequest extends FormRequest
 {
     protected function prepareForValidation()
     {
         $this->merge([
-            'escola' => $this->has('escola') ? Arr::flatten($this->get('escola')): null,
-            'curso' => $this->has('curso') ? Arr::flatten($this->get('curso')) : null
+            'escola' => $this->has('escola') ? Arr::flatten($this->get('escola')) : null,
+            'curso' => $this->has('curso') ? Arr::flatten($this->get('curso')) : null,
         ]);
     }
 
@@ -22,6 +23,7 @@ class SchoolClassPeriodRequest extends FormRequest
 
         return [
             'ref_cod_instituicao' => ['required', 'integer'],
+            'tipo' => ['required', 'in:schoolclass,school'],
             'escola' => ['nullable', 'array'],
             'curso' => ['nullable', 'array'],
             'ano' => ['required', 'integer', 'digits:4', 'min:1900'],
@@ -51,6 +53,7 @@ class SchoolClassPeriodRequest extends FormRequest
     public function attributes()
     {
         return [
+            'tipo' => 'Tipo',
             'ref_cod_instituicao' => 'Instituição',
             'escola' => 'Escola',
             'curso' => 'Curso',
@@ -76,17 +79,16 @@ class SchoolClassPeriodRequest extends FormRequest
     public function withValidator($validator)
     {
         $validator->after(function ($validator) {
-            $etapas = $this->input('etapas', []);
+            $etapas = collect($this->input('etapas', []));
 
             // Verificar se todas as etapas estão vazias
-            $allEmpty = collect($etapas)->every(function ($etapa) {
-                return empty($etapa['data_inicio']) &&
-                    empty($etapa['data_fim']) &&
-                    empty($etapa['dias_letivos']);
-            });
+            $allEmpty = $etapas->every(fn ($etapa) => empty($etapa['data_inicio']) &&
+                empty($etapa['data_fim']) &&
+                empty($etapa['dias_letivos']));
 
             if ($allEmpty) {
                 $validator->errors()->add('etapas', 'Nenhuma informação a ser atualizada nas etapas');
+
                 return;
             }
 
@@ -109,6 +111,18 @@ class SchoolClassPeriodRequest extends FormRequest
                             )
                         );
                     }
+                }
+            }
+            if ($stage = $this->get('ref_cod_modulo')) {
+                $filledStagesCount = $etapas
+                    ->filter(fn ($etapa) => !empty($etapa['data_inicio']) || !empty($etapa['data_fim']) || !empty($etapa['dias_letivos']))
+                    ->count();
+
+                // Valida número máximo de etapas
+                $stagesCount = LegacyStageType::query()->where('cod_modulo', $stage)->value('num_etapas');
+
+                if ($filledStagesCount > $stagesCount) {
+                    $validator->errors()->add('etapas', "O número de etapas preenchidas não pode exceder {$stagesCount} conforme o filtro.");
                 }
             }
         });

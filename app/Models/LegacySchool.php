@@ -87,7 +87,7 @@ class LegacySchool extends LegacyModel
         'acao_area_ambiental',
         'acoes_area_ambiental',
         'caracteristica_escolar',
-        'lei_conclusao_ensino_medio'
+        'lei_conclusao_ensino_medio',
     ];
 
     protected function id(): Attribute

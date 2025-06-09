@@ -585,7 +585,7 @@ class clsPmieducarMatricula extends Model
             $condicao_sequencial_fechamento = 'AND ativo = 1';
         }
 
-        $sql = "SELECT {$this->_campos_lista}, c.ref_cod_instituicao, p.nome, a.cod_aluno, a.ref_idpes, c.cod_curso, m.observacao, s.nm_serie, (SELECT sequencial_fechamento FROM pmieducar.matricula_turma WHERE ref_cod_matricula = cod_matricula {$condicao_sequencial_fechamento} LIMIT 1) as sequencial_fechamento FROM {$this->_tabela} m, {$this->_schema}curso c, {$this->_schema}aluno a,  {$this->_schema}serie s, cadastro.pessoa p ";
+        $sql = "SELECT {$this->_campos_lista}, c.ref_cod_instituicao, p.nome, a.cod_aluno, a.ref_idpes, c.cod_curso, m.observacao, m.observacoes, s.nm_serie, (SELECT sequencial_fechamento FROM pmieducar.matricula_turma WHERE ref_cod_matricula = cod_matricula {$condicao_sequencial_fechamento} LIMIT 1) as sequencial_fechamento FROM {$this->_tabela} m, {$this->_schema}curso c, {$this->_schema}aluno a,  {$this->_schema}serie s, cadastro.pessoa p ";
         $whereAnd = ' AND ';
         $filtros = ' WHERE m.ref_cod_aluno = a.cod_aluno AND m.ref_cod_curso = c.cod_curso AND p.idpes = a.ref_idpes AND m.ref_ref_cod_serie = s.cod_serie ';
 

@@ -8,15 +8,15 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::table('pmieducar.escola', function (Blueprint $table) {
-            $table->string('lei_conclusao_ensino_medio')->nullable();
+        Schema::table('modules.regra_avaliacao', function (Blueprint $table) {
+            $table->string('pontos')->nullable();
         });
     }
 
     public function down(): void
     {
-        Schema::table('pmieducar.escola', function (Blueprint $table) {
-            $table->dropColumn('lei_conclusao_ensino_medio');
+        Schema::table('modules.regra_avaliacao', function (Blueprint $table) {
+            $table->dropColumn('pontos');
         });
     }
 };

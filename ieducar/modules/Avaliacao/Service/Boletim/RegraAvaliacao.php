@@ -133,7 +133,6 @@ trait Avaliacao_Service_Boletim_RegraAvaliacao
         return (int) $this->getRegraAvaliacao()->get('reprovarAutomaticamenteAposDependencias');
     }
 
-
     /**
      * Retorna "1" se a regra de avaliação é do tipo nota geral por etapa.
      *

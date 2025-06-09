@@ -5,6 +5,29 @@
     <link rel="stylesheet" href="{{ Asset::get('vendor/legacy/Portabilis/Assets/Plugins/Chosen/chosen.css') }}"/>
 @endpush
 
+@push('scripts')
+    <script>
+        (function($){
+            $(document).ready(function() {
+                function toggleFields() {
+                    const valor = $('#tipo').val();
+                    if(valor == 'schoolclass') {
+                        $('#tr_cursos').show();
+                    } else {
+                        $('#tr_cursos').hide();
+                    }
+                }
+
+                toggleFields();
+
+                $('#tipo').change(function() {
+                    toggleFields();
+                });
+            });
+        })(jQuery);
+    </script>
+@endpush
+
 @section('content')
     <form id="formcadastro" action="" method="post">
         <table class="tablecadastro" width="100%" role="presentation">
@@ -29,6 +52,23 @@
                     @include('form.select-institution')
                 </td>
             </tr>
+            <tr id="tr_tipo">
+                <td class="formlttd" valign="top">
+                    <label for="tipo" class="form">Tipo <span class="campo_obrigatorio">*</span></label>
+                </td>
+                <td class="formlttd" valign="top">
+                    <span class="form">
+                        <select class="geral" name="tipo" id="tipo" style="width: 308px;">
+                            <option value="">Selecione o tipo</option>
+                            @foreach(['schoolclass' => 'Etapas da Turma', 'school' =>'Etapas da Escola'] as $valor => $tipo)
+                                <option value="{{ $valor }}" @if(old('tipo', Request::get('tipo')) == $valor) selected @endif>
+                                    {{ $tipo }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </span>
+                </td>
+            </tr>
             <tr>
                 <td class="formmdtd" valign="top">
                     <label for="schools" class="form">Escola</label>
@@ -37,7 +77,7 @@
                     @include('form.select-school-multiple')
                 </td>
             </tr>
-            <tr>
+            <tr id="tr_cursos">
                 <td class="formmdtd" valign="top">
                     <label for="cursos" class="form">Curso</label>
                 </td>
@@ -57,7 +97,7 @@
                     <select class="geral" name="ref_cod_modulo" id="ref_cod_eref_cod_moduloscola" style="width: 308px;">
                         <option value="">Selecione as opções</option>
                         @foreach(App_Model_IedFinder::getStageTypes() as $id => $name)
-                            <option value="{{$id}}">{{ Str::upper($name) }}</option>
+                            <option value="{{$id}}" @if(old('ref_cod_modulo', Request::get('ref_cod_modulo')) == $id) selected @endif>{{ Str::upper($name) }}</option>
                         @endforeach
                     </select>
                 </td>

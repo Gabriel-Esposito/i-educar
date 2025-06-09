@@ -242,9 +242,9 @@ return new class extends clsCadastro
         $opcoes = collect(EnrollmentStatusFilter::getDescriptiveValues())
             ->prepend('Selecione', '')
             ->except([
-                EnrollmentStatusFilter::EXCEPT_TRANSFERRED_OR_ABANDONMENT,  //Exceto Transferidos/Deixou de Frequentar'
-                EnrollmentStatusFilter::ALL, //Todas
-                RegistrationStatus::DECEASED  // Falecido
+                EnrollmentStatusFilter::EXCEPT_TRANSFERRED_OR_ABANDONMENT,  // Exceto Transferidos/Deixou de Frequentar'
+                EnrollmentStatusFilter::ALL, // Todas
+                RegistrationStatus::DECEASED,  // Falecido
             ]);
 
         $this->campoLista(nome: 'aprovado', campo: 'Situação', valor: $opcoes, default: $this->aprovado);

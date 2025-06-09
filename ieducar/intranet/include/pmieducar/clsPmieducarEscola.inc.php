@@ -1176,7 +1176,6 @@ class clsPmieducarEscola extends Model
                 $gruda = ', ';
             }
 
-
             $campos .= "{$gruda}data_cadastro";
             $valores .= "{$gruda}NOW()";
             $gruda = ', ';
@@ -1346,7 +1345,7 @@ class clsPmieducarEscola extends Model
             if (is_numeric($this->caracteristica_escolar)) {
                 $set .= "{$gruda}caracteristica_escolar = '{$this->caracteristica_escolar}'";
                 $gruda = ', ';
-            }  else {
+            } else {
                 $set .= "{$gruda}caracteristica_escolar = null";
                 $gruda = ', ';
             }

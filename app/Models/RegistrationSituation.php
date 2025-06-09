@@ -11,6 +11,6 @@ class RegistrationSituation extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'descricao'
+        'descricao',
     ];
 }

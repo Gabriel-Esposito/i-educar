@@ -111,7 +111,7 @@ return new class extends clsCadastro
 
         $selectOptions = [
             1 => 'Sim, aluno está em idade obrigatória',
-            0 => 'Não, aluno fora da idade obrigatória'
+            0 => 'Não, aluno fora da idade obrigatória',
         ];
 
         $options = [

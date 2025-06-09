@@ -45,9 +45,9 @@ class LegacyDisciplineScore extends Model
         return $this->belongsTo(LegacyDiscipline::class, 'componente_curricular_id');
     }
 
-    public function score(int $decimalPlaces = 1, bool $isGeneralAbsence = false): string|float|null
+    public function score(int $decimalPlaces = 1, bool $isGeneralAbsence = false, bool $rounded = true): string|float|null
     {
-        $score = $isGeneralAbsence ? 0 : $this->nota_arredondada;
+        $score = $isGeneralAbsence ? 0 : ($rounded ? $this->nota_arredondada : $this->nota);
         if (!is_numeric($score) || empty($score)) {
             return $score;
         }

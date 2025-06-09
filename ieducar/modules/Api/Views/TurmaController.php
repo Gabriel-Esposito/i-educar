@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\LegacyEvaluationRule;
 use App\Models\LegacySchoolClass;
 use App\Models\LegacySchoolClassGrade;
 
@@ -192,6 +193,15 @@ class TurmaController extends ApiCoreController
                 $this->appendResponse('tipo-boletim-diferenciado', $tipos[$tipoDiferenciado]);
             }
         }
+
+        $pontos = LegacyEvaluationRule::query()
+            ->whereHas('gradeYears', function ($q) use ($serie, $turma) {
+                $q->where('serie_id', $serie);
+                $q->where('ano_letivo', $turma['ano']);
+            })
+            ->value('pontos');
+
+        $this->appendResponse('pontos', !empty($pontos));
 
         return ['tipo-boletim' => $tipos[$tipo]];
     }

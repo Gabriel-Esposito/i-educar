@@ -63,7 +63,7 @@ return new class extends clsCadastro
         // foreign keys
 
         // text
-        $this->campoTexto(nome: 'nm_deficiencia', campo: 'Deficiência ou transtorno', valor: $this->nm_deficiencia, tamanhovisivel: 30, tamanhomaximo: 255, obrigatorio: true);
+        $this->campoTexto(nome: 'nm_deficiencia', campo: 'Deficiência ou transtorno', valor: $this->nm_deficiencia, tamanhovisivel: 30, tamanhomaximo: 70, obrigatorio: true);
 
         $options = [
             'label' => 'Tipo',

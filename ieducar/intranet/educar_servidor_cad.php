@@ -854,6 +854,9 @@ JS;
 
             foreach ($funcoes as $funcao => $cursos) {
                 foreach ($cursos as $curso => $disciplinas) {
+                    if (empty($curso)) {
+                        continue;
+                    }
                     $cursos_servidor[] = $curso;
 
                     foreach ($disciplinas as $disciplina) {

@@ -83,7 +83,7 @@ return new class extends clsCadastro
             int_ref_cod_instituicao: $this->ref_cod_instituicao
         );
 
-        $opcoes_curso = [];
+        $opcoes_curso = ['' => 'Selecione'];
         if ($lst_cursos) {
             foreach ($lst_cursos as $curso) {
                 $opcoes_curso[$curso['cod_curso']] = $curso['nm_curso'];

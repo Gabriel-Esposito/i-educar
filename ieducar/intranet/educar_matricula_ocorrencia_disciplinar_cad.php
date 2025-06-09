@@ -2,6 +2,7 @@
 
 use App\Models\LegacyDisciplinaryOccurrenceType;
 use App\Models\LegacyRegistrationDisciplinaryOccurrenceType;
+use Illuminate\Validation\ValidationException;
 
 return new class extends clsCadastro
 {
@@ -171,6 +172,12 @@ return new class extends clsCadastro
         $voltaListagem = is_numeric($this->ref_cod_matricula);
 
         $this->ref_cod_matricula = is_numeric($this->ref_cod_matricula) ? $this->ref_cod_matricula : $this->getRequest()->matricula_id;
+
+        if (empty($this->ref_cod_matricula)) {
+            throw ValidationException::withMessages([
+                'ref_cod_matricula' => ['Cadastro não efetuado. A matrícula é inválida!'],
+            ]);
+        }
 
         $obj_ref_cod_matricula = new clsPmieducarMatricula($this->ref_cod_matricula);
         $detalhe_mat = $obj_ref_cod_matricula->detalhe();

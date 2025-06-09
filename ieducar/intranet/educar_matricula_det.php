@@ -130,6 +130,10 @@ return new class extends clsDetalhe
             $this->addDetalhe(detalhe: ['Série', $registro['ref_ref_cod_serie']]);
         }
 
+        if ($registro['observacoes']) {
+            $this->addDetalhe(detalhe: ['Observações', $registro['observacoes']]);
+        }
+
         // Nome da turma
         $enturmacoes = new clsPmieducarMatriculaTurma;
 

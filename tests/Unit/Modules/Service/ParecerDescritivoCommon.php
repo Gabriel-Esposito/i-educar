@@ -250,7 +250,7 @@ abstract class Avaliacao_Service_ParecerDescritivoCommon extends Avaliacao_Servi
             ->method('save')
             ->willReturnOnConsecutiveCalls(true, true);
 
-        if(count($pareceres) !== 2) {
+        if (count($pareceres) !== 2) {
             $this->markTestSkipped();
         }
 
