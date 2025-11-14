@@ -1,0 +1,17 @@
+1 - sudo git clone https://github.com/portabilis/i-educar.git /var/www/ieducar
+2 - sudo -i
+3 - cd /var/www/ieducar
+4 - docker compose up -d --build
+5 - sudo chown -R 1001:1001 /var/www/ieducar
+6 - chmod -R 777 /var/www/ieducar/storage
+7 - chmod -R 777 /var/www/ieducar/bootstrap/cache
+8 - docker compose exec php composer new-install
+9 - docker compose exec php php artisan db:seed
+10 - sudo git clone https://github.com/portabilis/i-educar-reports-package.git packages/portabilis/i-educar-reports-package
+11 - docker compose exec php composer plug-and-play
+12 - sudo chmod -R 777 /var/www/ieducar/packages/portabilis/i-educar-reports-package/
+(12 - WSL Win = sudo chmod +x artisan) 
+
+13 - docker compose exec php artisan community:reports:install
+14 - docker compose exec php artisan vendor:publish --tag=reports-assets –ansi
+(14 - WSL Win = docker compose exec php artisan vendor:publish --tag=reports-assets --ansi)
